@@ -16,12 +16,12 @@
 @php
     $fieldId = str_replace(['[', ']'], ['_', ''], $name);
     $error = $errors->first($name);
-    $baseClasses = 'mt-2 block w-full rounded-xl border bg-white px-4 py-3 text-sm text-gray-700 shadow-sm focus:outline-none focus:ring-2';
-    $stateClasses = $error ? 'border-red-300 focus:border-red-400 focus:ring-red-200' : 'border-gray-200 focus:border-violet-400 focus:ring-violet-200';
+    $baseClasses = 'mt-2 block w-full rounded-2xl border bg-white/90 px-4 py-3.5 text-sm text-gray-700 shadow-sm transition placeholder:text-gray-400 focus:bg-white focus:outline-none focus:ring-2';
+    $stateClasses = $error ? 'border-red-200 focus:border-red-400 focus:ring-red-100' : 'border-gray-200 focus:border-violet-400 focus:ring-violet-200';
 @endphp
 
 <label for="{{ $fieldId }}" class="block">
-    <span class="text-xs font-medium uppercase tracking-wide text-gray-500">{{ $label }}</span>
+    <span class="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-gray-500">{{ $label }}</span>
 
     @if ($textarea || $type === 'textarea')
         <textarea

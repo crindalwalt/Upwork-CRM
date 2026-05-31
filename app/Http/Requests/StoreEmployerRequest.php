@@ -23,7 +23,11 @@ class StoreEmployerRequest extends FormRequest
             'location' => ['nullable', 'string'],
             'total_spent' => ['nullable', 'numeric', 'min:0'],
             'hire_rate' => ['nullable', 'numeric', 'min:0', 'max:100'],
+            'reviews_count' => ['nullable', 'integer', 'min:0'],
             'payment_verified' => ['nullable', 'boolean'],
+            'open_jobs_count' => ['nullable', 'integer', 'min:0'],
+            'member_since' => ['nullable', 'date'],
+            'internal_notes' => ['nullable', 'string'],
             'flag' => ['nullable', Rule::in(['green', 'yellow', 'red'])],
         ];
     }

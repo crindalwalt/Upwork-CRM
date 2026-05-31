@@ -20,6 +20,7 @@ class UpdateProposalRequest extends FormRequest
     {
         return [
             'job_id' => ['sometimes', 'exists:jobs,id'],
+            'employer_id' => ['sometimes', 'nullable', 'exists:employers,id'],
             'connects_spent' => ['sometimes', 'integer', 'min:1', 'max:20'],
             'status' => ['sometimes', Rule::in(array_map(
                 static fn (ProposalStatus $status) => $status->value,

@@ -20,6 +20,7 @@ class StoreProposalRequest extends FormRequest
     {
         return [
             'job_id' => ['required', 'exists:jobs,id'],
+            'employer_id' => ['nullable', 'exists:employers,id'],
             'connects_spent' => ['required', 'integer', 'min:1', 'max:20'],
             'status' => ['required', Rule::in(array_map(
                 static fn (ProposalStatus $status) => $status->value,

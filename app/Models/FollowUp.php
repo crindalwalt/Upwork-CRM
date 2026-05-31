@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\FollowUpType;
 use Database\Factories\FollowUpFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -73,5 +74,25 @@ class FollowUp extends Model
         return ! $this->is_done
             && $this->scheduled_at !== null
             && $this->scheduled_at->isPast();
+    }
+
+    public function scopePending(Builder $query): Builder
+    {
+        return $query->where('is_done', false);
+    }
+
+    public function scopeDone(Builder $query): Builder
+    {
+        return $query->where('is_done', true);
+    }
+
+    public function scopeDueToday(Builder $query): Builder
+    {
+        return $query->whereDate('scheduled_at', today());
+    }
+
+    public function scopeOverdue(Builder $query): Builder
+    {
+        return $query->pending()->where('scheduled_at', '<', now());
     }
 }

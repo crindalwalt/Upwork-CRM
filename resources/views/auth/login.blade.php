@@ -1,47 +1,41 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+@extends('layouts.auth')
 
-    <form method="POST" action="{{ route('login') }}">
+@section('title', 'Login')
+
+@section('content')
+    <div class="mb-8 text-center">
+        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-3xl bg-violet-100 text-3xl text-violet-700 shadow-sm">
+            <i class="ti ti-robot"></i>
+        </div>
+        <h1 class="mt-5 text-3xl font-semibold text-gray-900 font-display">ProposalCRM</h1>
+        <p class="mt-2 text-sm text-gray-400">Freelance intelligence, automated</p>
+    </div>
+
+    @if (session('status'))
+        <div class="mb-5 rounded-2xl border border-blue-200 bg-blue-50 px-4 py-3 text-sm text-blue-800">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('login') }}" class="space-y-5">
         @csrf
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+        <x-form-input name="email" label="Email" type="email" :value="old('email')" autocomplete="username" required autofocus />
+        <x-form-input name="password" label="Password" type="password" autocomplete="current-password" required />
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <label class="flex items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-700">
+            <input type="checkbox" name="remember" class="rounded border-gray-300 text-violet-600 focus:ring-violet-500">
+            <span>Remember me</span>
+        </label>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
+        <button type="submit" class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-violet-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-violet-700">
+            <i class="ti ti-login-2"></i>
+            <span>Log in</span>
+        </button>
     </form>
-</x-guest-layout>
+
+    <div class="mt-6 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-4 text-sm text-gray-500">
+        <div class="text-xs font-medium uppercase tracking-wide text-gray-500">Default credentials</div>
+        <div class="mt-2 font-mono text-xs text-gray-500">admin@crm.local / password</div>
+    </div>
+@endsection

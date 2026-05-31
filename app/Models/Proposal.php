@@ -129,6 +129,7 @@ class Proposal extends Model
     {
         $this->forceFill([
             'status' => ProposalStatus::Viewed,
+            'sent_at' => $this->sent_at ?? now(),
             'loom_viewed' => true,
             'loom_viewed_at' => now(),
             'loom_view_count' => $this->loom_view_count + 1,
@@ -139,6 +140,7 @@ class Proposal extends Model
     {
         $this->forceFill([
             'status' => ProposalStatus::Replied,
+            'sent_at' => $this->sent_at ?? now(),
             'replied_at' => now(),
         ])->save();
     }

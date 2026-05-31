@@ -5,7 +5,7 @@
 @section('subtitle', 'See which jobs qualify, which proposals fall below threshold, and whether the AI stack is configured.')
 
 @section('content')
-    <div class="space-y-6">
+    <div class="space-y-5">
         <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <x-stat-card :value="$minAiScore" label="Minimum AI score" icon="ti ti-brain" />
             <x-stat-card :value="$dailyProposalTarget" label="Daily proposal target" icon="ti ti-target-arrow" />
@@ -13,9 +13,9 @@
             <x-stat-card :value="$openAiKeyConfigured ? 'Configured' : 'Missing'" label="OpenAI key" icon="ti ti-key" />
         </section>
 
-        <section class="grid gap-6 xl:grid-cols-[minmax(0,3fr)_minmax(320px,2fr)]">
+        <section class="grid gap-5 xl:grid-cols-[minmax(0,3fr)_minmax(320px,2fr)]">
             <article class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-                <div class="flex items-center justify-between gap-4 border-b border-gray-200 px-6 py-4">
+                <div class="flex items-center justify-between gap-4 border-b border-gray-200 px-5 py-3.5">
                     <div>
                         <h2 class="font-display text-lg font-medium text-gray-800">Job scoring workbench</h2>
                         <p class="mt-1 text-sm text-gray-400">Recent jobs scored against budget, trust signals, competition, and portfolio fit.</p>
@@ -56,16 +56,16 @@
                                             <div class="flex items-center gap-2">
                                                 <x-score-badge :score="$entry['score']['score']" />
                                                 @if (($entry['score']['score'] ?? 0) >= $minAiScore)
-                                                    <span class="rounded-full bg-emerald-100 px-2.5 py-1 text-xs font-semibold text-emerald-700">Ready</span>
+                                                    <span class="rounded-full border border-gray-900 bg-gray-900 px-2.5 py-1 text-xs font-semibold text-white">Ready</span>
                                                 @else
-                                                    <span class="rounded-full bg-amber-100 px-2.5 py-1 text-xs font-semibold text-amber-800">Below target</span>
+                                                    <span class="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-semibold text-gray-700">Below target</span>
                                                 @endif
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 align-top text-sm text-gray-600">
                                             <p>{{ $entry['score']['reasoning'] }}</p>
                                             @if (! empty($entry['score']['flags']))
-                                                <div class="mt-2 space-y-1 text-xs text-red-600">
+                                                <div class="mt-2 space-y-1 text-xs text-gray-500">
                                                     @foreach ($entry['score']['flags'] as $flag)
                                                         <div>{{ $flag }}</div>
                                                     @endforeach
@@ -74,9 +74,9 @@
                                         </td>
                                         <td class="px-6 py-4 align-top">
                                             @if ($entry['match'])
-                                                <div class="rounded-2xl border border-violet-100 bg-violet-50 p-3">
-                                                    <div class="text-sm font-semibold text-violet-900">{{ $entry['match']->title }}</div>
-                                                    <div class="mt-1 text-xs text-violet-700">{{ $entry['match']->outcome_summary ?: 'Matched by niche tag alignment.' }}</div>
+                                                <div class="rounded-xl border border-gray-200 bg-gray-50 p-3">
+                                                    <div class="text-sm font-semibold text-gray-900">{{ $entry['match']->title }}</div>
+                                                    <div class="mt-1 text-xs text-gray-600">{{ $entry['match']->outcome_summary ?: 'Matched by niche tag alignment.' }}</div>
                                                 </div>
                                             @else
                                                 <span class="text-sm text-gray-400">No portfolio match</span>
@@ -91,31 +91,31 @@
             </article>
 
             <aside class="space-y-6">
-                <section class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <section class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
                     <div class="text-xs font-medium uppercase tracking-wide text-gray-500">Configuration snapshot</div>
                     <div class="mt-4 space-y-3 text-sm text-gray-600">
-                        <div class="flex items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3">
+                        <div class="flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
                             <span>OpenAI model</span>
                             <span class="font-semibold text-gray-900">{{ $openAiModel ?: 'Not set' }}</span>
                         </div>
-                        <div class="flex items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3">
+                        <div class="flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
                             <span>API key</span>
-                            <span class="font-semibold {{ $openAiKeyConfigured ? 'text-emerald-700' : 'text-red-700' }}">{{ $openAiKeyConfigured ? 'Configured' : 'Missing' }}</span>
+                            <span class="font-semibold {{ $openAiKeyConfigured ? 'text-gray-900' : 'text-gray-500' }}">{{ $openAiKeyConfigured ? 'Configured' : 'Missing' }}</span>
                         </div>
-                        <div class="flex items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3">
+                        <div class="flex items-center justify-between gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
                             <span>Proposal threshold</span>
                             <span class="font-semibold text-gray-900">{{ $minAiScore }}/10</span>
                         </div>
                     </div>
 
                     @if (! $openAiKeyConfigured)
-                        <div class="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800">
+                        <div class="mt-4 rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-600">
                             The AI workbench can still score jobs locally, but any future provider-backed features will stay unavailable until an API key is configured.
                         </div>
                     @endif
 
                     @if (auth()->user()?->isAdmin() && Route::has('settings.index'))
-                        <a href="{{ route('settings.index') }}" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-violet-700 hover:text-violet-800">
+                        <a href="{{ route('settings.index') }}" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-900 hover:text-black">
                             <span>Manage AI settings</span>
                             <i class="ti ti-arrow-right"></i>
                         </a>
@@ -132,7 +132,7 @@
                         <div class="p-6">
                             <x-empty-state icon="ti ti-chart-dots" title="No low-score proposals" description="Everything with an AI score currently clears the configured threshold.">
                                 @if (Route::has('proposals.index'))
-                                    <a href="{{ route('proposals.index') }}" class="rounded-xl bg-violet-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-violet-700">Review proposals</a>
+                                    <a href="{{ route('proposals.index') }}" class="rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-black">Review proposals</a>
                                 @endif
                             </x-empty-state>
                         </div>

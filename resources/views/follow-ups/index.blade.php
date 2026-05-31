@@ -5,7 +5,7 @@
 @section('subtitle', 'Keep proposal conversations moving with visible next actions and overdue recovery.')
 
 @section('content')
-    <div class="space-y-6">
+    <div class="space-y-5">
         <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <x-stat-card :value="$stats['pending']" label="Pending" icon="ti ti-clock-hour-4" />
             <x-stat-card :value="$stats['today']" label="Due today" icon="ti ti-calendar-time" />
@@ -13,11 +13,11 @@
             <x-stat-card :value="$stats['done']" label="Completed" icon="ti ti-circle-check" />
         </section>
 
-        <section class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+        <section class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
             <form method="GET" action="{{ route('follow-ups.index') }}" class="grid gap-3 xl:grid-cols-[180px_180px_minmax(0,1fr)_auto]">
                 <label class="block">
-                    <span class="text-xs font-medium uppercase tracking-wide text-gray-500">Status</span>
-                    <select name="status" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
+                    <span class="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-gray-500">Status</span>
+                    <select name="status" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
                         <option value="">All</option>
                         <option value="pending" @selected($filters['status'] === 'pending')>Pending</option>
                         <option value="today" @selected($filters['status'] === 'today')>Due today</option>
@@ -27,8 +27,8 @@
                 </label>
 
                 <label class="block">
-                    <span class="text-xs font-medium uppercase tracking-wide text-gray-500">Type</span>
-                    <select name="type" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
+                    <span class="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-gray-500">Type</span>
+                    <select name="type" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
                         <option value="">All types</option>
                         @foreach ($types as $type)
                             <option value="{{ $type->value }}" @selected($filters['type'] === $type->value)>{{ $type->name }}</option>
@@ -37,13 +37,13 @@
                 </label>
 
                 <label class="block">
-                    <span class="text-xs font-medium uppercase tracking-wide text-gray-500">Search</span>
-                    <input type="text" name="search" value="{{ $filters['search'] }}" placeholder="Proposal, employer, or outcome note" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
+                    <span class="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-gray-500">Search</span>
+                    <input type="text" name="search" value="{{ $filters['search'] }}" placeholder="Proposal, employer, or outcome note" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
                 </label>
 
                 <div class="flex items-end gap-3">
-                    <button type="submit" class="rounded-xl bg-gray-900 px-4 py-3 text-sm font-semibold text-white hover:bg-gray-800">Filter</button>
-                    <a href="{{ route('follow-ups.create') }}" class="inline-flex items-center gap-2 rounded-xl bg-violet-600 px-4 py-3 text-sm font-semibold text-white hover:bg-violet-700">
+                    <button type="submit" class="rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-gray-800">Filter</button>
+                    <a href="{{ route('follow-ups.create') }}" class="inline-flex items-center gap-2 rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-violet-700">
                         <i class="ti ti-plus"></i>
                         <span>Add follow-up</span>
                     </a>
@@ -55,7 +55,7 @@
             @if ($followUps->isEmpty())
                 <div class="p-6">
                     <x-empty-state icon="ti ti-clock-off" title="No follow-ups match your filters" description="Create a next step on a proposal to keep the pipeline active.">
-                        <a href="{{ route('follow-ups.create') }}" class="rounded-xl bg-violet-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-violet-700">Add follow-up</a>
+                        <a href="{{ route('follow-ups.create') }}" class="rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-black">Add follow-up</a>
                     </x-empty-state>
                 </div>
             @else
@@ -77,7 +77,7 @@
                                     <td class="px-6 py-4 align-top">
                                         <div class="font-medium text-gray-900">
                                             @if ($followUp->proposal && Route::has('proposals.show'))
-                                                <a href="{{ route('proposals.show', $followUp->proposal) }}" class="hover:text-violet-700">{{ $followUp->proposal->job?->title ?? 'Untitled proposal' }}</a>
+                                                <a href="{{ route('proposals.show', $followUp->proposal) }}" class="hover:text-gray-900">{{ $followUp->proposal->job?->title ?? 'Untitled proposal' }}</a>
                                             @else
                                                 {{ $followUp->proposal->job?->title ?? 'Untitled proposal' }}
                                             @endif
@@ -89,7 +89,7 @@
                                     </td>
                                     <td class="px-6 py-4 align-top text-sm text-gray-600">
                                         <div>{{ $followUp->scheduled_at?->format('M j, Y g:i A') }}</div>
-                                        <div class="mt-2 inline-flex rounded-full px-2.5 py-1 text-xs font-semibold {{ $followUp->is_done ? 'bg-emerald-100 text-emerald-700' : ($followUp->isOverdue() ? 'bg-red-100 text-red-700' : ($followUp->scheduled_at?->isToday() ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800')) }}">
+                                        <div class="mt-2 inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold {{ $followUp->is_done ? 'border-gray-900 bg-gray-900 text-white' : ($followUp->isOverdue() ? 'border-gray-200 bg-white text-gray-500' : ($followUp->scheduled_at?->isToday() ? 'border-gray-300 bg-gray-100 text-gray-800' : 'border-gray-200 bg-gray-50 text-gray-700')) }}">
                                             {{ $followUp->is_done ? 'Done' : ($followUp->isOverdue() ? 'Overdue' : ($followUp->scheduled_at?->isToday() ? 'Due today' : 'Upcoming')) }}
                                         </div>
                                     </td>
@@ -101,14 +101,14 @@
                                                 <form method="POST" action="{{ route('follow-ups.complete', $followUp) }}">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button type="submit" class="inline-flex h-9 items-center justify-center rounded-xl border border-emerald-200 px-3 text-sm font-semibold text-emerald-700 hover:bg-emerald-50">Done</button>
+                                                    <button type="submit" class="inline-flex h-8 items-center justify-center rounded-lg border border-gray-900 bg-gray-900 px-3 text-sm font-medium text-white hover:bg-black">Done</button>
                                                 </form>
                                             @endif
-                                            <a href="{{ route('follow-ups.edit', $followUp) }}" class="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 hover:border-violet-200 hover:bg-violet-50 hover:text-violet-700" title="Edit">
+                                            <a href="{{ route('follow-ups.edit', $followUp) }}" class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 hover:border-violet-200 hover:bg-violet-50 hover:text-violet-700" title="Edit">
                                                 <i class="ti ti-edit"></i>
                                             </a>
                                             @can('delete', $followUp)
-                                                <x-confirm-delete :action="route('follow-ups.destroy', $followUp)" title="Delete follow-up" message="This permanently removes the reminder and any stored outcome note." class="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 hover:border-red-200 hover:bg-red-50 hover:text-red-700">
+                                                <x-confirm-delete :action="route('follow-ups.destroy', $followUp)" title="Delete follow-up" message="This permanently removes the reminder and any stored outcome note." class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 hover:border-red-200 hover:bg-red-50 hover:text-red-700">
                                                     <i class="ti ti-trash"></i>
                                                 </x-confirm-delete>
                                             @endcan

@@ -5,9 +5,9 @@
 @section('subtitle', 'Manage operational thresholds, AI configuration, and the active team roster.')
 
 @section('content')
-    <div class="space-y-6">
-        <section class="grid gap-6 xl:grid-cols-[minmax(0,3fr)_minmax(320px,2fr)]">
-            <article class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+    <div class="space-y-5">
+        <section class="grid gap-5 xl:grid-cols-[minmax(0,3fr)_minmax(320px,2fr)]">
+            <article class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
                 <div class="flex items-center justify-between gap-4">
                     <div>
                         <h2 class="font-display text-lg font-medium text-gray-800">Operational settings</h2>
@@ -15,11 +15,11 @@
                     </div>
                 </div>
 
-                <form method="POST" action="{{ route('settings.update') }}" class="mt-6 space-y-5">
+                <form method="POST" action="{{ route('settings.update') }}" class="mt-5 space-y-4">
                     @csrf
                     @method('PUT')
 
-                    <div class="grid gap-5 md:grid-cols-2">
+                    <div class="grid gap-4 md:grid-cols-2">
                         @foreach ($fields as $key => $field)
                             <div class="{{ in_array($key, ['openai_api_key', 'app_timezone'], true) ? 'md:col-span-2' : '' }}">
                                 <x-form-input :name="$key" :label="$field['label']" :type="$field['input']" :value="old($key, $settings->get($key)?->typedValue())" :placeholder="$field['description']" />
@@ -28,7 +28,7 @@
                         @endforeach
                     </div>
 
-                    <button type="submit" class="inline-flex items-center gap-2 rounded-xl bg-violet-600 px-4 py-3 text-sm font-semibold text-white hover:bg-violet-700">
+                    <button type="submit" class="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-black">
                         <i class="ti ti-device-floppy"></i>
                         <span>Save settings</span>
                     </button>
@@ -36,21 +36,21 @@
             </article>
 
             <aside class="space-y-6">
-                <section class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <section class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
                     <div class="text-xs font-medium uppercase tracking-wide text-gray-500">Status snapshot</div>
                     <div class="mt-4 grid gap-4">
-                        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                        <div class="rounded-xl border border-gray-200 bg-gray-50 p-3.5">
                             <div class="text-sm text-gray-500">Connects remaining this week</div>
                             <div class="mt-1 text-2xl font-semibold text-gray-900">{{ $connectsRemaining }}</div>
                         </div>
-                        <div class="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                        <div class="rounded-xl border border-gray-200 bg-gray-50 p-3.5">
                             <div class="text-sm text-gray-500">Configured model</div>
                             <div class="mt-1 text-lg font-semibold text-gray-900">{{ $settings->get('openai_model')?->typedValue() ?? 'Not set' }}</div>
                         </div>
                     </div>
                 </section>
 
-                <section class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+                <section class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
                     <div class="text-xs font-medium uppercase tracking-wide text-gray-500">Admin note</div>
                     <p class="mt-3 text-sm leading-6 text-gray-600">The team controls below are intentionally conservative. The page prevents you from demoting or deactivating the last active admin account.</p>
                 </section>
@@ -81,16 +81,16 @@
                                     <div class="mt-1 text-sm text-gray-400">{{ $user->email }}</div>
                                 </td>
                                 <td class="px-6 py-4 align-top">
-                                    <select name="role" form="team-form-{{ $user->id }}" class="rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
+                                    <select name="role" form="team-form-{{ $user->id }}" class="rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
                                         @foreach ($roles as $role)
                                             <option value="{{ $role->value }}" @selected($user->role === $role)>{{ ucfirst($role->value) }}</option>
                                         @endforeach
                                     </select>
                                 </td>
                                 <td class="px-6 py-4 align-top">
-                                    <label class="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-700">
+                                    <label class="inline-flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-2 text-xs font-semibold text-gray-700">
                                         <input type="hidden" name="is_active" value="0" form="team-form-{{ $user->id }}">
-                                        <input type="checkbox" name="is_active" value="1" form="team-form-{{ $user->id }}" @checked($user->is_active) class="rounded border-gray-300 text-violet-600 focus:ring-violet-500">
+                                        <input type="checkbox" name="is_active" value="1" form="team-form-{{ $user->id }}" @checked($user->is_active) class="rounded border-gray-300 text-gray-900 focus:ring-gray-400">
                                         <span>{{ $user->is_active ? 'Active' : 'Inactive' }}</span>
                                     </label>
                                 </td>
@@ -99,7 +99,7 @@
                                         @csrf
                                         @method('PATCH')
                                     </form>
-                                    <button type="submit" form="team-form-{{ $user->id }}" class="inline-flex items-center gap-2 rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-semibold text-white hover:bg-gray-800">
+                                    <button type="submit" form="team-form-{{ $user->id }}" class="inline-flex items-center gap-2 rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-gray-800">
                                         <i class="ti ti-device-floppy"></i>
                                         <span>Update</span>
                                     </button>

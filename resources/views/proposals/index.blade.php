@@ -3,12 +3,12 @@
 @section('title', 'Proposals')
 
 @section('content')
-    <div class="space-y-6">
-        <section class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
+    <div class="space-y-5">
+        <section class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
             <form method="GET" action="{{ route('proposals.index') }}" class="grid gap-3 xl:grid-cols-[160px_160px_170px_170px_minmax(0,1fr)_auto]">
                 <label class="block">
-                    <span class="text-xs font-medium uppercase tracking-wide text-gray-500">Status</span>
-                    <select name="status" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
+                    <span class="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-gray-500">Status</span>
+                    <select name="status" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
                         <option value="">All statuses</option>
                         @foreach ($statuses as $status)
                             <option value="{{ $status->value }}" @selected($filters['status'] === $status->value)>{{ $status->label() }}</option>
@@ -17,8 +17,8 @@
                 </label>
 
                 <label class="block">
-                    <span class="text-xs font-medium uppercase tracking-wide text-gray-500">Niche</span>
-                    <select name="niche" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
+                    <span class="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-gray-500">Niche</span>
+                    <select name="niche" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
                         <option value="">All niches</option>
                         @foreach ($niches as $niche)
                             <option value="{{ $niche->value }}" @selected($filters['niche'] === $niche->value)>{{ $niche->label() }}</option>
@@ -27,24 +27,24 @@
                 </label>
 
                 <label class="block">
-                    <span class="text-xs font-medium uppercase tracking-wide text-gray-500">Date from</span>
-                    <input type="date" name="date_from" value="{{ $filters['date_from'] }}" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
+                    <span class="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-gray-500">Date from</span>
+                    <input type="date" name="date_from" value="{{ $filters['date_from'] }}" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
                 </label>
 
                 <label class="block">
-                    <span class="text-xs font-medium uppercase tracking-wide text-gray-500">Date to</span>
-                    <input type="date" name="date_to" value="{{ $filters['date_to'] }}" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
+                    <span class="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-gray-500">Date to</span>
+                    <input type="date" name="date_to" value="{{ $filters['date_to'] }}" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
                 </label>
 
                 <label class="block">
-                    <span class="text-xs font-medium uppercase tracking-wide text-gray-500">Search</span>
-                    <input type="text" name="search" value="{{ $filters['search'] }}" placeholder="Job, employer, or cover letter" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
+                    <span class="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-gray-500">Search</span>
+                    <input type="text" name="search" value="{{ $filters['search'] }}" placeholder="Job, employer, or cover letter" class="mt-2 block w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-700 shadow-sm focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-200">
                 </label>
 
                 <div class="flex items-end gap-3">
-                    <button type="submit" class="rounded-xl bg-gray-900 px-4 py-3 text-sm font-semibold text-white hover:bg-gray-800">Filter</button>
+                    <button type="submit" class="rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-gray-800">Filter</button>
                     @if (Route::has('proposals.create'))
-                        <a href="{{ route('proposals.create') }}" class="inline-flex items-center gap-2 rounded-xl bg-violet-600 px-4 py-3 text-sm font-semibold text-white hover:bg-violet-700">
+                        <a href="{{ route('proposals.create') }}" class="inline-flex items-center gap-2 rounded-lg bg-violet-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-violet-700">
                             <i class="ti ti-plus"></i>
                             <span>Add proposal</span>
                         </a>
@@ -56,18 +56,18 @@
         <section class="grid gap-3 md:grid-cols-5">
             @php
                 $statLinks = [
-                    ['label' => 'Sent', 'value' => $stats['total_sent'], 'status' => 'sent', 'classes' => 'bg-blue-100 text-blue-800'],
-                    ['label' => 'Viewed', 'value' => $stats['total_viewed'], 'status' => 'viewed', 'classes' => 'bg-amber-100 text-amber-800'],
-                    ['label' => 'Replied', 'value' => $stats['total_replied'], 'status' => 'replied', 'classes' => 'bg-purple-100 text-purple-800'],
-                    ['label' => 'Won', 'value' => $stats['total_won'], 'status' => 'won', 'classes' => 'bg-emerald-100 text-emerald-800'],
-                    ['label' => 'Lost', 'value' => $stats['total_lost'], 'status' => 'lost', 'classes' => 'bg-red-100 text-red-800'],
+                    ['label' => 'Sent', 'value' => $stats['total_sent'], 'status' => 'sent', 'classes' => 'border border-gray-200 bg-white text-gray-600'],
+                    ['label' => 'Viewed', 'value' => $stats['total_viewed'], 'status' => 'viewed', 'classes' => 'border border-gray-200 bg-gray-50 text-gray-700'],
+                    ['label' => 'Replied', 'value' => $stats['total_replied'], 'status' => 'replied', 'classes' => 'border border-gray-300 bg-gray-100 text-gray-800'],
+                    ['label' => 'Won', 'value' => $stats['total_won'], 'status' => 'won', 'classes' => 'border border-gray-900 bg-gray-900 text-white'],
+                    ['label' => 'Lost', 'value' => $stats['total_lost'], 'status' => 'lost', 'classes' => 'border border-gray-200 bg-white text-gray-500'],
                 ];
             @endphp
 
             @foreach ($statLinks as $stat)
-                <a href="{{ route('proposals.index', array_filter([...$filters, 'status' => $stat['status']])) }}" class="rounded-2xl px-4 py-4 shadow-sm {{ $stat['classes'] }} {{ $filters['status'] === $stat['status'] ? 'ring-2 ring-offset-2 ring-violet-300' : '' }}">
+                <a href="{{ route('proposals.index', array_filter([...$filters, 'status' => $stat['status']])) }}" class="rounded-xl px-4 py-3 shadow-sm {{ $stat['classes'] }} {{ $filters['status'] === $stat['status'] ? 'ring-1 ring-gray-900/10' : '' }}">
                     <div class="text-2xl font-semibold font-display">{{ $stat['value'] }}</div>
-                    <div class="mt-1 text-xs font-medium uppercase tracking-wide">{{ $stat['label'] }}</div>
+                    <div class="mt-1 text-[0.68rem] font-semibold uppercase tracking-[0.16em]">{{ $stat['label'] }}</div>
                 </a>
             @endforeach
         </section>
@@ -76,7 +76,7 @@
             @if ($proposals->isEmpty())
                 <div class="p-6">
                     <x-empty-state icon="ti ti-search-off" title="No proposals match your filters" description="Try widening your search or reset the filter set.">
-                        <a href="{{ route('proposals.index') }}" class="rounded-xl bg-violet-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-violet-700">Reset filters</a>
+                        <a href="{{ route('proposals.index') }}" class="rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-black">Reset filters</a>
                     </x-empty-state>
                 </div>
             @else
@@ -102,7 +102,7 @@
                                             <a href="{{ route('proposals.show', $proposal) }}" class="hover:text-violet-700">{{ \Illuminate\Support\Str::limit($proposal->job?->title ?? 'Untitled job', 50) }}</a>
                                         </div>
                                         <div class="mt-2">
-                                            <span class="rounded-full bg-violet-50 px-2.5 py-1 text-xs font-semibold text-violet-700">{{ $proposal->job?->niche?->label() ?? 'Other' }}</span>
+                                            <span class="rounded-full bg-gray-100 px-2.5 py-1 text-xs font-semibold text-gray-700">{{ $proposal->job?->niche?->label() ?? 'Other' }}</span>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 align-top">
@@ -114,7 +114,7 @@
                                     <td class="px-6 py-4 align-top">
                                         <div class="flex items-center gap-2 text-gray-600">
                                             @if ($proposal->loom_viewed)
-                                                <i class="ti ti-eye text-blue-600"></i>
+                                                <i class="ti ti-eye text-gray-700"></i>
                                             @else
                                                 <span class="text-gray-400">—</span>
                                             @endif
@@ -125,14 +125,14 @@
                                     <td class="px-6 py-4 align-top text-gray-600">{{ $proposal->sent_at?->diffForHumans() ?? '—' }}</td>
                                     <td class="px-6 py-4 align-top">
                                         <div class="flex items-center justify-end gap-2 text-gray-500">
-                                            <a href="{{ route('proposals.show', $proposal) }}" class="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 hover:border-violet-200 hover:bg-violet-50 hover:text-violet-700" title="View">
+                                            <a href="{{ route('proposals.show', $proposal) }}" class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 hover:border-violet-200 hover:bg-violet-50 hover:text-violet-700" title="View">
                                                 <i class="ti ti-eye"></i>
                                             </a>
-                                            <a href="{{ route('proposals.edit', $proposal) }}" class="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 hover:border-violet-200 hover:bg-violet-50 hover:text-violet-700" title="Edit">
+                                            <a href="{{ route('proposals.edit', $proposal) }}" class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 hover:border-violet-200 hover:bg-violet-50 hover:text-violet-700" title="Edit">
                                                 <i class="ti ti-edit"></i>
                                             </a>
                                             @can('delete', $proposal)
-                                                <x-confirm-delete :action="route('proposals.destroy', $proposal)" title="Delete proposal" message="This will permanently remove the proposal and its related notes and follow-ups." class="inline-flex h-9 w-9 items-center justify-center rounded-xl border border-gray-200 hover:border-red-200 hover:bg-red-50 hover:text-red-700">
+                                                <x-confirm-delete :action="route('proposals.destroy', $proposal)" title="Delete proposal" message="This will permanently remove the proposal and its related notes and follow-ups." class="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 hover:border-red-200 hover:bg-red-50 hover:text-red-700">
                                                     <i class="ti ti-trash"></i>
                                                 </x-confirm-delete>
                                             @endcan

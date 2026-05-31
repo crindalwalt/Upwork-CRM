@@ -19,17 +19,13 @@
                         },
                         colors: {
                             brand: {
-                                50: '#eef4ff',
-                                100: '#dce7fb',
-                                200: '#c4d4f5',
-                                500: '#5877bf',
-                                600: '#3f61a8',
-                                700: '#314d84',
-                                800: '#22365e',
-                            },
-                            sand: {
-                                50: '#faf5ee',
-                                100: '#f2e7d8',
+                                50: '#f4f4f5',
+                                100: '#e4e4e7',
+                                200: '#d4d4d8',
+                                500: '#52525b',
+                                600: '#3f3f46',
+                                700: '#27272a',
+                                800: '#18181b',
                             },
                         },
                     },
@@ -42,24 +38,39 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         :root {
-            --auth-bg-warm: #faf5ee;
-            --auth-bg-cool: #eef3f9;
-            --auth-text: #334155;
+            --auth-bg: #fafafc;
+            --auth-bg-soft: #f4f4f5;
+            --auth-text: #27272a;
+            --border-soft: #e4e4e7;
+            --border-strong: #d4d4d8;
+            --brand-50: #f4f4f5;
+            --brand-100: #e4e4e7;
+            --brand-600: #3f3f46;
+            --brand-700: #27272a;
+            --brand-800: #18181b;
             --font-sans-stack: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             --font-display-stack: 'Sora', 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         }
 
         body {
             background:
-                radial-gradient(circle at top left, rgba(242, 231, 216, 0.72), transparent 34%),
-                radial-gradient(circle at top right, rgba(196, 212, 245, 0.48), transparent 36%),
-                linear-gradient(180deg, var(--auth-bg-warm) 0%, #f8f8fb 44%, var(--auth-bg-cool) 100%);
+                radial-gradient(circle at top, rgba(15, 23, 42, 0.05), transparent 34%),
+                linear-gradient(180deg, var(--auth-bg) 0%, var(--auth-bg-soft) 100%);
             color: var(--auth-text);
             font-family: var(--font-sans-stack);
             letter-spacing: -0.01em;
             text-rendering: optimizeLegibility;
             font-feature-settings: 'cv02' 1, 'cv03' 1, 'cv04' 1, 'cv11' 1;
         }
+
+        .rounded-sm { border-radius: 0.2rem !important; }
+        .rounded,
+        .rounded-md { border-radius: 0.3rem !important; }
+        .rounded-lg { border-radius: 0.4rem !important; }
+        .rounded-xl { border-radius: 0.5rem !important; }
+        .rounded-2xl { border-radius: 0.6rem !important; }
+        .rounded-3xl { border-radius: 0.7rem !important; }
+        .rounded-full { border-radius: 0.55rem !important; }
 
         input, button, textarea, select {
             font-family: var(--font-sans-stack);
@@ -74,14 +85,22 @@
         h6 {
             font-family: var(--font-display-stack) !important;
         }
+
+        .bg-violet-100 { background-color: var(--brand-100) !important; }
+        .bg-violet-600 { background-color: var(--brand-700) !important; }
+        .bg-violet-700 { background-color: var(--brand-800) !important; }
+        .text-violet-700 { color: var(--brand-700) !important; }
+        .text-violet-600 { color: var(--brand-600) !important; }
+        .border-violet-200 { border-color: rgba(39, 39, 42, 0.14) !important; }
+        .focus\:border-violet-400:focus { border-color: var(--brand-600) !important; }
+        .focus\:ring-violet-200:focus { --tw-ring-color: rgba(39, 39, 42, 0.1) !important; }
+        .hover\:bg-violet-700:hover { background-color: var(--brand-800) !important; }
     </style>
 </head>
 <body class="min-h-screen font-sans text-gray-700 antialiased">
     <div class="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-10">
-        <div class="pointer-events-none absolute inset-x-0 top-[-14%] h-72 bg-[radial-gradient(circle,_rgba(242,231,216,0.96),_transparent_60%)]"></div>
-        <div class="pointer-events-none absolute right-[-10%] top-1/4 h-72 w-72 rounded-full bg-[rgba(220,231,251,0.82)] blur-3xl"></div>
-        <div class="pointer-events-none absolute left-[-8%] bottom-[-4%] h-80 w-80 rounded-full bg-[rgba(15,23,42,0.07)] blur-3xl"></div>
-        <div class="relative w-full max-w-md rounded-[2rem] border border-white/70 bg-white/80 p-8 shadow-[0_30px_100px_-52px_rgba(15,23,42,0.46)] backdrop-blur-xl">
+        <div class="pointer-events-none absolute inset-x-0 top-[-14%] h-72 bg-[radial-gradient(circle,_rgba(15,23,42,0.06),_transparent_60%)]"></div>
+        <div class="relative w-full max-w-md rounded-2xl border border-gray-200 bg-white p-7 shadow-[0_22px_52px_-38px_rgba(15,23,42,0.24)]">
             @yield('content')
         </div>
     </div>

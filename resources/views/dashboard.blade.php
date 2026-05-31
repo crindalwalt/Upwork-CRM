@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <div class="space-y-6">
+    <div class="space-y-5">
         <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <x-stat-card :value="$weeklyProposals" label="Total sent this week" icon="ti ti-send" />
             <x-stat-card :value="number_format($stats['view_rate'], 1).'%'" label="Loom view rate" icon="ti ti-eye" />
@@ -11,27 +11,27 @@
             <x-stat-card :value="$dashboardConnectsRemaining" label="Connects remaining" icon="ti ti-bolt" />
         </div>
 
-        <div class="grid gap-6 xl:grid-cols-[minmax(0,3fr)_minmax(320px,2fr)]">
-            <section class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+        <div class="grid gap-5 xl:grid-cols-[minmax(0,3fr)_minmax(320px,2fr)]">
+            <section class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
                 <div class="flex items-center justify-between gap-4">
                     <div>
                         <h2 class="text-lg font-medium text-gray-800 font-display">Proposal momentum</h2>
                         <p class="mt-1 text-sm text-gray-400">The last 14 days of sent proposals.</p>
                     </div>
-                    <span class="rounded-full bg-violet-50 px-3 py-1 text-xs font-semibold text-violet-700">14 days</span>
+                    <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-700">14 days</span>
                 </div>
                 <div class="mt-6 h-72">
                     <canvas id="proposalChart"></canvas>
                 </div>
             </section>
 
-            <section class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+            <section class="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
                 <div class="flex items-center justify-between gap-4">
                     <div>
                         <h2 class="text-lg font-medium text-gray-800 font-display">Due today</h2>
                         <p class="mt-1 text-sm text-gray-400">Follow-ups that need attention before the day ends.</p>
                     </div>
-                    <span class="rounded-full bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-700">{{ $todayFollowUps->count() }}</span>
+                    <span class="rounded-lg bg-gray-100 px-3 py-1.5 text-xs font-semibold text-gray-700">{{ $todayFollowUps->count() }}</span>
                 </div>
 
                 @if ($todayFollowUps->isEmpty())
@@ -41,12 +41,12 @@
                 @else
                     <div class="mt-6 space-y-4">
                         @foreach ($todayFollowUps as $followUp)
-                            <div class="rounded-2xl border border-gray-200 bg-gray-50 px-4 py-4">
+                            <div class="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5">
                                 <div class="flex items-start justify-between gap-4">
                                     <div>
                                         <div class="text-sm font-semibold text-gray-900">
                                             @if (Route::has('proposals.show'))
-                                                <a href="{{ route('proposals.show', $followUp->proposal) }}" class="hover:text-violet-700">
+                                                <a href="{{ route('proposals.show', $followUp->proposal) }}" class="hover:text-gray-900">
                                                     {{ \Illuminate\Support\Str::limit($followUp->proposal?->job?->title ?? 'Untitled proposal', 40) }}
                                                 </a>
                                             @else
@@ -63,7 +63,7 @@
                                         <form method="POST" action="{{ route('follow-ups.complete', $followUp) }}">
                                             @csrf
                                             @method('PATCH')
-                                            <button type="submit" class="rounded-xl bg-violet-600 px-3 py-2 text-xs font-semibold text-white hover:bg-violet-700">Mark done</button>
+                                            <button type="submit" class="rounded-lg bg-gray-900 px-3 py-2 text-xs font-medium text-white hover:bg-black">Mark done</button>
                                         </form>
                                     @endif
                                 </div>
@@ -106,7 +106,7 @@
                                     <td class="px-6 py-4">
                                         <div class="font-medium text-gray-900">
                                             @if (Route::has('proposals.show'))
-                                                <a href="{{ route('proposals.show', $proposal) }}" class="hover:text-violet-700">
+                                                <a href="{{ route('proposals.show', $proposal) }}" class="hover:text-gray-900">
                                                     {{ $proposal->job?->title ?? 'Untitled job' }}
                                                 </a>
                                             @else
@@ -121,7 +121,7 @@
                                     <td class="px-6 py-4 text-gray-600">{{ $proposal->connects_spent }}</td>
                                     <td class="px-6 py-4 text-right">
                                         @if (Route::has('proposals.show'))
-                                            <a href="{{ route('proposals.show', $proposal) }}" class="text-sm font-semibold text-violet-700 hover:text-violet-800">View</a>
+                                            <a href="{{ route('proposals.show', $proposal) }}" class="text-sm font-semibold text-gray-900 hover:text-black">View</a>
                                         @else
                                             <span class="text-sm text-gray-400">Pending</span>
                                         @endif
@@ -147,21 +147,21 @@
             @else
                 <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
                     @foreach ($topScoredJobs as $job)
-                        <article class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
+                        <article class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
                             <div class="flex items-start justify-between gap-3">
-                                <span class="rounded-full bg-violet-50 px-2.5 py-1 text-xs font-semibold text-violet-700">{{ $job->niche?->label() ?? 'Other' }}</span>
+                                <span class="rounded-full bg-gray-100 px-2.5 py-1 text-xs font-semibold text-gray-700">{{ $job->niche?->label() ?? 'Other' }}</span>
                                 <x-score-badge :score="$job->max_ai_score" />
                             </div>
                             <h3 class="mt-4 font-semibold text-gray-900">
                                 @if (Route::has('jobs.show'))
-                                    <a href="{{ route('jobs.show', $job) }}" class="hover:text-violet-700">{{ \Illuminate\Support\Str::limit($job->title, 60) }}</a>
+                                    <a href="{{ route('jobs.show', $job) }}" class="hover:text-gray-900">{{ \Illuminate\Support\Str::limit($job->title, 60) }}</a>
                                 @else
                                     {{ \Illuminate\Support\Str::limit($job->title, 60) }}
                                 @endif
                             </h3>
                             <p class="mt-2 text-sm text-gray-400">{{ $job->employer?->name ?? 'Independent client' }}</p>
                             @if (Route::has('jobs.show'))
-                                <a href="{{ route('jobs.show', $job) }}" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-violet-700 hover:text-violet-800">
+                                <a href="{{ route('jobs.show', $job) }}" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gray-900 hover:text-black">
                                     <span>View job</span>
                                     <i class="ti ti-arrow-right"></i>
                                 </a>
@@ -186,12 +186,12 @@
                     labels: chartPayload.labels,
                     datasets: [{
                         data: chartPayload.data,
-                        borderColor: '#7c3aed',
+                        borderColor: '#18181b',
                         borderWidth: 3,
                         tension: 0.3,
                         fill: false,
                         pointRadius: 3,
-                        pointBackgroundColor: '#7c3aed',
+                        pointBackgroundColor: '#18181b',
                     }],
                 },
                 options: {
@@ -207,17 +207,17 @@
                                 display: false,
                             },
                             ticks: {
-                                color: '#6b7280',
+                                color: '#71717a',
                             },
                         },
                         y: {
                             beginAtZero: true,
                             ticks: {
                                 precision: 0,
-                                color: '#6b7280',
+                                color: '#71717a',
                             },
                             grid: {
-                                color: '#e5e7eb',
+                                color: '#e4e4e7',
                             },
                         },
                     },
